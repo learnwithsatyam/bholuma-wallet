@@ -26,18 +26,16 @@ function Navbar() {
       <div className='text-lg font-bold border-b-2 px-2 border-black'>
         BholumaWallet
       </div>
-      {
-      ( address && privateKey) ??
+      {address &&
         <div>
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
                 <NavigationMenuTrigger>
-                  {address.toString() }
+                  {address.toString().substring(0, 20)}
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <NavigationMenuLink>
-                    <Button variant="outline" 
+                    <Button variant="ghost" 
                       className='w-full'
                       onClick={() => {
                         dispatch(setAddress(''));
@@ -45,7 +43,6 @@ function Navbar() {
                       }}>
                         Disconnect
                     </Button>
-                  </NavigationMenuLink>
                 </NavigationMenuContent>
               </NavigationMenuItem>
             </NavigationMenuList>
