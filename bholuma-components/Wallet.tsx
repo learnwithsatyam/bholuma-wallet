@@ -13,7 +13,7 @@ import {
 
 function Wallet() {
     return (
-        <Card className="w-[350px] text-left">
+        <Card className="w-[350px] text-left dark:bg-gray-800 dark">
             <CardHeader>
                 <CardTitle>
                     Overview
@@ -31,32 +31,32 @@ function Wallet() {
             </CardContent>
             <CardFooter className="flex justify-between">
                 <div>
-                    <Button variant="ghost" className="w-full rounded-lg bg-black">
-                        <RefreshCcw className="h-4 w-4 text-white" />
+                    <Button variant="ghost" className="w-full rounded-lg">
+                        <RefreshCcw className="h-4 w-4" />
                     </Button>
                     <div className="text-sm text-muted-foreground">
                         Refresh
                     </div>
                 </div>
                 <div className="text-center">
-                    <Button variant="outline" className="w-full bg-black rounded-lg">
-                        <Send className="h-4 w-4 text-white" />
+                    <Button variant="outline" className="w-full rounded-lg">
+                        <Send className="h-4 w-4" />
                     </Button>
                     <div className="text-sm text-muted-foreground">
                         SOL
                     </div>
                 </div>
                 <div>
-                    <Button variant="ghost" className="w-full rounded-lg bg-black">
-                        <RadioReceiverIcon className="h-4 w-4 text-white" />
+                    <Button variant="ghost" className="w-full rounded-lg">
+                        <RadioReceiverIcon className="h-4 w-4" />
                     </Button>
                     <div className="text-sm text-muted-foreground">
                         Recieve
                     </div>
                 </div>
                 <div>
-                    <Button variant="ghost" className="w-full rounded-lg bg-black">
-                        <Replace className="h-4 w-4 text-white" />
+                    <Button variant="ghost" className="w-full rounded-lg">
+                        <Replace className="h-4 w-4" />
                     </Button>
                     <div className="text-sm text-muted-foreground">
                         Swap
