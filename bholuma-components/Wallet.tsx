@@ -11,7 +11,7 @@ import {
     CardTitle,
 } from "@/components/ui/card"
 
-function Wallet({openSendModal}: { openSendModal: () => void }) {
+function Wallet({openSendModal, handleRefresh}: { openSendModal: () => void, handleRefresh: () => void }) {
     return (
         <div className="flex items-center justify-center h-screen w-screen">
             
@@ -33,7 +33,7 @@ function Wallet({openSendModal}: { openSendModal: () => void }) {
             </CardContent>
             <CardFooter className="flex justify-between">
                 <div>
-                    <Button variant="outline" className="w-full rounded-lg">
+                    <Button variant="outline" className="w-full rounded-lg" onClick={handleRefresh}>
                         <RefreshCcw className="h-4 w-4" />
                     </Button>
                     <div className="text-xs text-center text-muted-foreground">

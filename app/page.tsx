@@ -12,6 +12,16 @@ export default function Home() {
   const privateKey = useSelector((state: RootState) => state.wallet.privateKey);
 
   const [openSendModal, setOpenSendModal] = useState(false);
+  const [solAmount, setSolAmount] = useState(0);
+  const [receiveAddress, setReceiveAddress] = useState("");
+
+  const handleSendSol = () => {
+    // Logic to send SOL using solAmount and receiveAddress
+  }
+
+  const handleRefresh = () => {
+    // Logic to refresh the wallet state
+  }
 
   let content;
 
@@ -21,11 +31,11 @@ export default function Home() {
       break;
 
     case !!address && !openSendModal:
-      content = <Wallet openSendModal={() => setOpenSendModal(true)} />;
+      content = <Wallet openSendModal={() => setOpenSendModal(true)} handleRefresh={handleRefresh} />;
       break;
 
     case !!address && openSendModal:
-      content = <SendSol openDrawer={openSendModal} setOpenDrawer={setOpenSendModal} />;
+      content = <SendSol openDrawer={openSendModal} setOpenDrawer={setOpenSendModal} setSolAmount={setSolAmount} setRecieveAddress={setReceiveAddress} handleSendSol={handleSendSol} />;
       break;
 
     default:
