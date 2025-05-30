@@ -22,8 +22,8 @@ function Navbar() {
   const privateKey = useSelector((state: RootState) => state.wallet.privateKey);
   const dispatch = useDispatch();
   return (
-    <div className='flex items-center justify-between w-full px-4 py-4 bg-white text-primary shadow shadow-sm dark bg-black '>
-      <div className='text-lg font-bold border-b-2 px-2 border-black'>
+    <div className='flex items-center justify-between w-full px-4 py-4 text-primary shadow-white shadow-sm '>
+      <div className='text-lg font-bold'>
         BholumaWallet
       </div>
       {address &&

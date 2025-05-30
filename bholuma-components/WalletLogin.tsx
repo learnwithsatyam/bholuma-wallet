@@ -42,14 +42,14 @@ function WalletLogin() {
     };
 
     return (
-        <div>
-            <Tabs defaultValue="passphrase" className="w-[400px]">
+        <div className=' flex flex-col items-center justify-center h-screen w-screen'>
+            <Tabs defaultValue="passphrase" className="w-full max-w-md">
                 <TabsList>
                     <TabsTrigger value="privateKey">Private key</TabsTrigger>
                     <TabsTrigger value="passphrase">Passphrase</TabsTrigger>
                 </TabsList>
                 <TabsContent value="privateKey">
-                    <Card className="W-[350px] text-left">
+                    <Card className="w-full h-full text-left">
                         <CardHeader>
                             <CardTitle>Recover from Private Key</CardTitle>
                             <CardDescription>
@@ -70,7 +70,7 @@ function WalletLogin() {
                     </Card>
                 </TabsContent>
                 <TabsContent value="passphrase">
-                    <Card className="W-[350px]">
+                    <Card className="w-full h-full text-left">
                         <CardHeader>
                             <CardTitle>Recover from Pass Phrase</CardTitle>
                             <CardDescription>

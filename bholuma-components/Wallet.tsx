@@ -13,7 +13,9 @@ import {
 
 function Wallet() {
     return (
-        <Card className="w-[350px] text-left dark:bg-gray-800 dark">
+        <div className="flex items-center justify-center h-screen w-screen">
+            
+        <Card className="w-[500px] text-left dark:bg-gray-800">
             <CardHeader>
                 <CardTitle>
                     Overview
@@ -64,6 +66,7 @@ function Wallet() {
                 </div>
             </CardFooter>
         </Card>
+        </div>
     )
 }
 
