@@ -25,7 +25,7 @@ export default function Home() {
       break;
 
     case !!address && openSendModal:
-      content = <SendSol onClose={() => setOpenSendModal(false)} />;
+      content = <SendSol openDrawer={openSendModal} setOpenDrawer={setOpenSendModal} />;
       break;
 
     default:
