@@ -15,15 +15,15 @@ function Wallet() {
     return (
         <div className="flex items-center justify-center h-screen w-screen">
             
-        <Card className="w-[500px] text-left dark:bg-gray-800 space-y-4">
+        <Card className="w-1/2  text-left dark:bg-gray-800 space-y-4">
             <CardHeader>
-                <CardTitle className="text-md font-bold">
+                <CardTitle className="text-xl font-bold">
                     Overview
                 </CardTitle>
             </CardHeader>
             <CardContent>
                 <div>
-                    <div className="text-4xl font-bold">
+                    <div className="text-5xl font-bold">
                         0.00 SOL
                     </div>
                     <div className="text-xs text-muted-foreground">

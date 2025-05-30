@@ -32,7 +32,9 @@ function Navbar() {
             <NavigationMenuList>
               <NavigationMenuItem>
                 <NavigationMenuTrigger>
-                  {address.toString().substring(0, 20)}
+                  <span className='p-2 rounded-md text-primary font-bold'>
+                    {address.toString().substring(0, 20)}
+                  </span>
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
                     <Button variant="ghost" 
