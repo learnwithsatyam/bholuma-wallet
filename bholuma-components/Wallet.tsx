@@ -11,7 +11,7 @@ import {
     CardTitle,
 } from "@/components/ui/card"
 
-function Wallet() {
+function Wallet({openSendModal}: { openSendModal: () => void }) {
     return (
         <div className="flex items-center justify-center h-screen w-screen">
             
@@ -41,7 +41,7 @@ function Wallet() {
                     </div>
                 </div>
                 <div className="text-center">
-                    <Button variant="outline" className="w-full rounded-lg">
+                    <Button variant="outline" className="w-full rounded-lg" onClick={openSendModal}>
                         <Send className="h-4 w-4" />
                     </Button>
                     <div className="text-xs text-center text-muted-foreground">
