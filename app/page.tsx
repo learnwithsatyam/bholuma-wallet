@@ -6,6 +6,8 @@ import WalletLogin from "@/bholuma-components/WalletLogin";
 import { RootState } from "@/store/index";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { getConnection, sendSol, getBalance, getAirdrop } from "@/lib/solanaChain";
+import { toast } from "sonner";
 
 export default function Home() {
   const address = useSelector((state: RootState) => state.wallet.address);
@@ -15,12 +17,32 @@ export default function Home() {
   const [solAmount, setSolAmount] = useState(0);
   const [receiveAddress, setReceiveAddress] = useState("");
 
-  const handleSendSol = () => {
+  const handleSendSol = async () => {
     // Logic to send SOL using solAmount and receiveAddress
+    const res = await sendSol(
+      address,
+      receiveAddress,
+      solAmount,
+      privateKey
+    );
+
+    toast(res, {
+      description: "Sunday, December 03, 2023 at 9:00 AM",
+    })
   }
 
-  const handleRefresh = () => {
+  const handleAirdrop = async () => {
+    // Logic to request an airdrop
+    const res = await getAirdrop(address);
+    toast(res, {
+      description: "Sunday, December 03, 2023 at 9:00 AM",
+    })
+  }
+
+  const handleRefresh = async () => {
     // Logic to refresh the wallet state
+    const solBalance = await getBalance(address);
+    return solBalance;
   }
 
   let content;
@@ -31,7 +53,7 @@ export default function Home() {
       break;
 
     case !!address && !openSendModal:
-      content = <Wallet openSendModal={() => setOpenSendModal(true)} handleRefresh={handleRefresh} />;
+      content = <Wallet openSendModal={() => setOpenSendModal(true)} handleRefresh={handleRefresh} handleAirdrop={handleAirdrop} />;
       break;
 
     case !!address && openSendModal:

@@ -10,8 +10,9 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
+import { getAirdrop } from "@/lib/solanaChain"
 
-function Wallet({openSendModal, handleRefresh}: { openSendModal: () => void, handleRefresh: () => void }) {
+function Wallet({openSendModal, handleRefresh, handleAirdrop}: { openSendModal: () => void, handleRefresh: () => void, handleAirdrop: () => void }) {
     return (
         <div className="flex items-center justify-center h-screen w-screen">
             
@@ -49,11 +50,11 @@ function Wallet({openSendModal, handleRefresh}: { openSendModal: () => void, han
                     </div>
                 </div>
                 <div>
-                    <Button variant="outline" className="w-full rounded-lg">
+                    <Button variant="outline" className="w-full rounded-lg" onClick={handleAirdrop} >
                         <RadioReceiverIcon className="h-4 w-4" />
                     </Button>
                     <div className="text-xs text-center text-muted-foreground">
-                        Recieve
+                        Airdrop
                     </div>
                 </div>
                 <div>
