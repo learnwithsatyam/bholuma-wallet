@@ -1,10 +1,22 @@
 import { clusterApiUrl, Connection, Keypair, LAMPORTS_PER_SOL, PublicKey, sendAndConfirmRawTransaction, sendAndConfirmTransaction, SystemProgram, Transaction } from "@solana/web3.js";
+import * as bip39 from "bip39";
 
 const connection = new Connection(clusterApiUrl("devnet"), "confirmed")
 
 const getConnection = () => {
     return connection;
 };
+
+const createWallet = () => {
+    const mnemonic = bip39.generateMnemonic();
+    const seed = bip39.mnemonicToSeedSync(mnemonic, "");
+    const keypair = Keypair.fromSeed(seed.subarray(0, 32));
+    return {
+        mnemonicPhrase: mnemonic,
+        address: keypair.publicKey.toBase58(),
+        privateKey: JSON.stringify(Array.from(keypair.secretKey)) // Store as a JSON string for easier handling
+    };
+}
 
 const getBalance = async (address: string) => {
     try {
@@ -68,4 +80,4 @@ const sendSol = async (fromAddress: string, toAddress: string, amount: number, p
         return "Failed to send SOL";
     }
 };
-export { getBalance, sendSol, getAirdrop, getConnection };
+export { createWallet, getBalance, sendSol, getAirdrop, getConnection };
