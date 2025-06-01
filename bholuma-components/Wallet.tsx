@@ -12,7 +12,15 @@ import {
 } from "@/components/ui/card"
 import { getAirdrop } from "@/lib/solanaChain"
 
-function Wallet({openSendModal, handleRefresh, handleAirdrop}: { openSendModal: () => void, handleRefresh: () => void, handleAirdrop: () => void }) {
+function Wallet({openSendModal, handleRefresh, handleAirdrop}: { openSendModal: () => void, handleRefresh: () => Promise<number>, handleAirdrop: () => void }) {
+    const [solAmount, setSolAmount] = React.useState(0);
+    React.useEffect(() => {
+        const fetchBalance = async () => {
+            const balance = await handleRefresh();
+            setSolAmount(balance);
+        };
+        fetchBalance();
+    }, []);
     return (
         <div className="flex items-center justify-center h-screen w-screen">
             
@@ -25,7 +33,7 @@ function Wallet({openSendModal, handleRefresh, handleAirdrop}: { openSendModal: 
             <CardContent>
                 <div>
                     <div className="text-5xl font-bold">
-                        0.00 SOL
+                        {solAmount} SOL
                     </div>
                     <div className="text-xs text-muted-foreground">
                         Available balance
@@ -34,8 +42,8 @@ function Wallet({openSendModal, handleRefresh, handleAirdrop}: { openSendModal: 
             </CardContent>
             <CardFooter className="flex justify-between">
                 <div>
-                    <Button variant="outline" className="w-full rounded-lg" onClick={handleRefresh}>
-                        <RefreshCcw className="h-4 w-4" />
+                    <Button variant="outline" className="w-full rounded-lg" onClick={ async () => setSolAmount(await handleRefresh())}>
+                        <RefreshCcw className="h-4 w-4"/>
                     </Button>
                     <div className="text-xs text-center text-muted-foreground">
                         Refresh
