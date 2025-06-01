@@ -30,6 +30,7 @@ const getBalance = async (address: string) => {
 };
 
 const getAirdrop = async (address: string) => {
+    console.error = function() {};
     try {
         const publicKey = new PublicKey(address);
         const airdropSignature = await connection.requestAirdrop(publicKey, LAMPORTS_PER_SOL);
@@ -40,8 +41,12 @@ const getAirdrop = async (address: string) => {
             signature: airdropSignature
         });
         return "Airdrop successful";
-    } catch (error) {
-        console.error("Error requesting airdrop:", error);
+    } catch(error: any) {
+        if (error.message?.includes("429")) {
+            // Optionally log it silently
+            return "Rate limit hit. Try again later.";
+        }
+        console.log("Error requesting airdrop:", error);
         return "Failed to request airdrop";
     }
 };
@@ -55,11 +60,11 @@ const sendSol = async (fromAddress: string, toAddress: string, amount: number, p
         // Create a transaction
         const balance = await getBalance(fromAddress);
 
-        if(balance>=amount){
+        if (balance >= amount) {
             const instruction = SystemProgram.transfer({
-                fromPubkey : fromPublicKey,
-                toPubkey : toPublicKey,
-                lamports : amount
+                fromPubkey: fromPublicKey,
+                toPubkey: toPublicKey,
+                lamports: amount
             });
 
             const transaction = new Transaction().add(instruction);
@@ -71,7 +76,7 @@ const sendSol = async (fromAddress: string, toAddress: string, amount: number, p
                 { commitment: "confirmed" }
             );
 
-            if(res) {
+            if (res) {
                 return "transaction successful";
             }
         }

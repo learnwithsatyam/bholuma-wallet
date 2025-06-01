@@ -35,10 +35,18 @@ export default function Home() {
 
   const handleAirdrop = async () => {
     // Logic to request an airdrop
+    try{
     const res = await getAirdrop(address);
     toast(res, {
       description: "Sunday, December 03, 2023 at 9:00 AM",
     })
+    }
+    catch (error) {
+      console.error("Airdrop failed:", error);
+      toast.error("Airdrop failed. Please try again later.");
+      return;
+    }
+    
   }
 
   const handleRefresh = async () => {
