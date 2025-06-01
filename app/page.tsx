@@ -8,6 +8,7 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getConnection, sendSol, getBalance, getAirdrop } from "@/lib/solanaChain";
 import { toast } from "sonner";
+import CreateWallet from "@/bholuma-components/CreateWallet";
 
 export default function Home() {
   const address = useSelector((state: RootState) => state.wallet.address);
@@ -16,6 +17,7 @@ export default function Home() {
   const [openSendModal, setOpenSendModal] = useState(false);
   const [solAmount, setSolAmount] = useState(0);
   const [receiveAddress, setReceiveAddress] = useState("");
+  const [alreadyHaveWallet, setAlreadyHaveWallet] = useState(false);
 
   const handleSendSol = async () => {
     // Logic to send SOL using solAmount and receiveAddress
@@ -48,20 +50,20 @@ export default function Home() {
   let content;
 
   switch (true) {
-    case !address:
+    case !address && alreadyHaveWallet:
       content = <WalletLogin />;
       break;
 
-    case !!address && !openSendModal:
+    case !!address && !openSendModal && alreadyHaveWallet:
       content = <Wallet openSendModal={() => setOpenSendModal(true)} handleRefresh={handleRefresh} handleAirdrop={handleAirdrop} />;
       break;
 
-    case !!address && openSendModal:
+    case !!address && openSendModal && alreadyHaveWallet:
       content = <SendSol openDrawer={openSendModal} setOpenDrawer={setOpenSendModal} setSolAmount={setSolAmount} setRecieveAddress={setReceiveAddress} handleSendSol={handleSendSol} />;
       break;
 
     default:
-      content = <div>Unexpected state</div>;
+      content = <CreateWallet alreadyHaveWallet={alreadyHaveWallet} setAlreadyHaveWallet={setAlreadyHaveWallet} />;
   }
 
   return (
