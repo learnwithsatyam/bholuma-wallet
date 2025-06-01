@@ -7,6 +7,7 @@ import { Card, CardDescription, CardHeader, CardTitle, CardContent, CardFooter, 
 import { Button } from '@/components/ui/button';
 import { createWallet } from '@/lib/solanaChain';
 import { Copy } from 'lucide-react';
+import MnemonicDisplay from './MneumonicDisplay';
 
 function CreateWallet({ alreadyHaveWallet, setAlreadyHaveWallet }: { alreadyHaveWallet: boolean, setAlreadyHaveWallet: (value: boolean) => void }) {
     const dispatch = useDispatch();
@@ -20,7 +21,7 @@ function CreateWallet({ alreadyHaveWallet, setAlreadyHaveWallet }: { alreadyHave
     }
     return (
         <Card>
-            <CardHeader>
+            <CardHeader className="text-left">
                 <CardTitle>Welcome!!</CardTitle>
                 <CardDescription>Create wallet or login to existing wallet...</CardDescription>
                 {mnumonicPhrase && <CardAction onClick={() => navigator.clipboard.writeText(mnumonicPhrase)}><Copy /></CardAction>}
@@ -29,10 +30,14 @@ function CreateWallet({ alreadyHaveWallet, setAlreadyHaveWallet }: { alreadyHave
                 {mnumonicPhrase ?
                     <div className="text-sm">
                         <p>Your mnemonic phrase is:</p>
-                        <p className="font-mono">{mnumonicPhrase}</p>
+                        <MnemonicDisplay phrase={mnumonicPhrase} />
                         <p>Please keep it safe and secure.</p>
-                        <Button variant="outline" className="w-full rounded-lg mt-4" onClick={() => { setAlreadyHaveWallet(true) }}>
-                            Continue to Wallet
+                        <Button variant="outline" className="w-full rounded-lg mt-4" onClick={() => { 
+                            navigator.clipboard.writeText(mnumonicPhrase || '');
+                            alert('Mnemonic phrase copied to clipboard!');
+                            setAlreadyHaveWallet(true) 
+                            }}>
+                            Copy phrase and Continue to Wallet
                         </Button>
                     </div>
                     :
