@@ -44,6 +44,12 @@ function Navbar() {
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
+                  <div className="flex items-center space-x-2">
+                    <Switch id="airplane-mode" checked={isDevnet} onCheckedChange={handleNetworkChange} />
+                    <Label htmlFor="Devnet">Devnet</Label>
+                  </div>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
                 <NavigationMenuLink asChild>
                   <Button variant="ghost" className='w-full' onClick={() => {
                     navigator.clipboard.writeText(address.toString());
@@ -51,12 +57,6 @@ function Navbar() {
                     <Copy className='h-4 w-4' />
                   </Button>
                 </NavigationMenuLink>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                  <div className="flex items-center space-x-2">
-                    <Switch id="airplane-mode" checked={isDevnet} onCheckedChange={handleNetworkChange} />
-                    <Label htmlFor="Devnet">Devnet</Label>
-                  </div>
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <NavigationMenuTrigger>
