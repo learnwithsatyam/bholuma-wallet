@@ -1,10 +1,13 @@
 import { clusterApiUrl, Connection, Keypair, LAMPORTS_PER_SOL, PublicKey, sendAndConfirmRawTransaction, sendAndConfirmTransaction, SystemProgram, Transaction } from "@solana/web3.js";
 import * as bip39 from "bip39";
 
-const connection = new Connection(clusterApiUrl("devnet"), "confirmed")
-
-const getConnection = () => {
-    return connection;
+const mainConnection = new Connection("https://solana-mainnet.g.alchemy.com/v2/1IZTPplz_q5df0XwiJ47Z4XRvQAPo-3d", "confirmed")
+const devConnection = new Connection("https://solana-devnet.g.alchemy.com/v2/1IZTPplz_q5df0XwiJ47Z4XRvQAPo-3d", "confirmed");
+const getConnection = (network: string) => {
+    if(network === "devnet") {
+        return devConnection;
+    }     
+    return mainConnection;
 };
 
 const createWallet = () => {
@@ -18,8 +21,9 @@ const createWallet = () => {
     };
 }
 
-const getBalance = async (address: string) => {
+const getBalance = async (network: string, address: string) => {
     try {
+        const connection = getConnection(network);
         const publicKey = new PublicKey(address);
         const balance = await connection.getBalance(publicKey);
         return balance / LAMPORTS_PER_SOL; // Convert lamports to SOL
@@ -29,7 +33,11 @@ const getBalance = async (address: string) => {
     }
 };
 
-const getAirdrop = async (address: string) => {
+const getAirdrop = async (network: string, address: string) => {
+    if(network !== "devnet") {
+        return "Airdrop is only available on devnet";
+    }
+    const connection = getConnection(network);
     console.error = function() {};
     try {
         const publicKey = new PublicKey(address);
@@ -51,14 +59,15 @@ const getAirdrop = async (address: string) => {
     }
 };
 
-const sendSol = async (fromAddress: string, toAddress: string, amount: number, privateKey: string) => {
+const sendSol = async (network: string, fromAddress: string, toAddress: string, amount: number, privateKey: string) => {
+    const connection = getConnection(network);
     try {
         const fromPublicKey = new PublicKey(fromAddress);
         const toPublicKey = new PublicKey(toAddress);
         const fromSecretKey = Uint8Array.from(JSON.parse(privateKey)); // Assuming privateKey is a JSON string of the secret key
         const fromKeypair = Keypair.fromSecretKey(fromSecretKey);
         // Create a transaction
-        const balance = await getBalance(fromAddress);
+        const balance = await getBalance(network, fromAddress);
 
         if (balance >= amount) {
             const instruction = SystemProgram.transfer({

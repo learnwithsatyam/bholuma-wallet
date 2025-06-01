@@ -13,6 +13,7 @@ import CreateWallet from "@/bholuma-components/CreateWallet";
 export default function Home() {
   const address = useSelector((state: RootState) => state.wallet.address);
   const privateKey = useSelector((state: RootState) => state.wallet.privateKey);
+  const blockchainNetwork = useSelector((state: RootState) => state.blockchainNetwork.network);
 
   const [openSendModal, setOpenSendModal] = useState(false);
   const [solAmount, setSolAmount] = useState(0);
@@ -22,6 +23,7 @@ export default function Home() {
   const handleSendSol = async () => {
     // Logic to send SOL using solAmount and receiveAddress
     const res = await sendSol(
+      blockchainNetwork,
       address,
       receiveAddress,
       solAmount,
@@ -36,7 +38,7 @@ export default function Home() {
   const handleAirdrop = async () => {
     // Logic to request an airdrop
     try{
-    const res = await getAirdrop(address);
+    const res = await getAirdrop(blockchainNetwork, address);
     toast(res, {
       description: "Sunday, December 03, 2023 at 9:00 AM",
     })
@@ -51,7 +53,7 @@ export default function Home() {
 
   const handleRefresh = async () => {
     // Logic to refresh the wallet state
-    const solBalance = await getBalance(address);
+    const solBalance = await getBalance(blockchainNetwork, address);
     return solBalance;
   }
 
