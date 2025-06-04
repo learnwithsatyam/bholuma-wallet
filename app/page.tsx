@@ -31,8 +31,8 @@ export default function Home() {
     );
 
     toast(res, {
-      description: "Sunday, December 03, 2023 at 9:00 AM",
-    })
+          description: "Sunday, December 03, 2023 at 9:00 AM",
+        })
   }
 
   const handleAirdrop = async () => {
