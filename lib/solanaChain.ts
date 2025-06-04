@@ -1,8 +1,12 @@
 import { clusterApiUrl, Connection, Keypair, LAMPORTS_PER_SOL, PublicKey, sendAndConfirmRawTransaction, sendAndConfirmTransaction, SystemProgram, Transaction } from "@solana/web3.js";
 import * as bip39 from "bip39";
+import bs58 from 'bs58';
 
-const mainConnection = new Connection("https://solana-mainnet.g.alchemy.com/v2/1IZTPplz_q5df0XwiJ47Z4XRvQAPo-3d", "confirmed")
-const devConnection = new Connection("https://solana-devnet.g.alchemy.com/v2/1IZTPplz_q5df0XwiJ47Z4XRvQAPo-3d", "confirmed");
+//const mainConnection = new Connection("https://solana-mainnet.g.alchemy.com/v2/1IZTPplz_q5df0XwiJ47Z4XRvQAPo-3d", "confirmed") // alchemy
+const mainConnection = new Connection("https://go.getblock.io/f3710c78a2a544a78173826c65f936f8", "confirmed")
+//const devConnection = new Connection("https://solana-devnet.g.alchemy.com/v2/1IZTPplz_q5df0XwiJ47Z4XRvQAPo-3d", "confirmed");
+const devConnection = new Connection(clusterApiUrl('devnet'), "confirmed");
+
 const getConnection = (network: string) => {
     if(network === "devnet") {
         return devConnection;
@@ -43,11 +47,11 @@ const getAirdrop = async (network: string, address: string) => {
         const publicKey = new PublicKey(address);
         const airdropSignature = await connection.requestAirdrop(publicKey, LAMPORTS_PER_SOL);
         const latestBlockhash = await connection.getLatestBlockhash();
-        await connection.confirmTransaction({
+        const res = await connection.confirmTransaction({
             lastValidBlockHeight: latestBlockhash.lastValidBlockHeight,
             blockhash: latestBlockhash.blockhash,
             signature: airdropSignature
-        });
+        }, "confirmed");
         return "Airdrop successful";
     } catch(error: any) {
         if (error.message?.includes("429")) {
@@ -64,7 +68,7 @@ const sendSol = async (network: string, fromAddress: string, toAddress: string, 
     try {
         const fromPublicKey = new PublicKey(fromAddress);
         const toPublicKey = new PublicKey(toAddress);
-        const fromSecretKey = Uint8Array.from(JSON.parse(privateKey)); // Assuming privateKey is a JSON string of the secret key
+        const fromSecretKey =  bs58.decode(privateKey); 
         const fromKeypair = Keypair.fromSecretKey(fromSecretKey);
         // Create a transaction
         const balance = await getBalance(network, fromAddress);
@@ -73,7 +77,7 @@ const sendSol = async (network: string, fromAddress: string, toAddress: string, 
             const instruction = SystemProgram.transfer({
                 fromPubkey: fromPublicKey,
                 toPubkey: toPublicKey,
-                lamports: amount
+                lamports: amount*LAMPORTS_PER_SOL
             });
 
             const transaction = new Transaction().add(instruction);
