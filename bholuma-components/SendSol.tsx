@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/drawer"
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { BholumaButton } from '@/bholuma-components/BholumaButton'
 
 function SendSol({ openDrawer, setOpenDrawer, setSolAmount, setRecieveAddress, handleSendSol }: { openDrawer: boolean, setOpenDrawer: (open: boolean) => void, setSolAmount: (amount: number) => void, setRecieveAddress: (address: string) => void, handleSendSol: () => void }) {
     return (
@@ -39,7 +40,7 @@ function SendSol({ openDrawer, setOpenDrawer, setSolAmount, setRecieveAddress, h
                 </div>
                 <DrawerFooter>
                     <div className="flex space-x-2">
-                        <Button className='w-1/2' onClick={() => handleSendSol()}>Send</Button>
+                        <BholumaButton className='w-1/2' onClick={handleSendSol}>Send</BholumaButton>
                         <DrawerClose className='w-1/2' asChild>
                             <Button variant="outline">Cancel</Button>
                         </DrawerClose>

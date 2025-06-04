@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getConnection, sendSol, getBalance, getAirdrop } from "@/lib/solanaChain";
 import { toast } from "sonner";
 import CreateWallet from "@/bholuma-components/CreateWallet";
+import { getDate } from "@/lib/utils";
 
 export default function Home() {
   const address = useSelector((state: RootState) => state.wallet.address);
@@ -31,7 +32,7 @@ export default function Home() {
     );
 
     toast(res, {
-          description: "Sunday, December 03, 2023 at 9:00 AM",
+          description: getDate(),
         })
   }
 
@@ -40,7 +41,7 @@ export default function Home() {
     try{
     const res = await getAirdrop(blockchainNetwork, address);
     toast(res, {
-      description: "Sunday, December 03, 2023 at 9:00 AM",
+      description: getDate(),
     })
     }
     catch (error) {
