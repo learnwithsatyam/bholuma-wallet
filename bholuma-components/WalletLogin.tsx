@@ -21,7 +21,11 @@ import bs58 from "bs58";
 import { Keypair } from "@solana/web3.js";
 import * as bip39 from "bip39";
 
-function WalletLogin() {
+function WalletLogin({
+  setAlreadyHaveWallet,
+}: {
+  setAlreadyHaveWallet: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
   const [localPrivateKey, setLocalPrivateKey] = useState("");
   const [localPassphrase, setLocalPassphrase] = useState("");
   const dispatch = useDispatch();
@@ -75,8 +79,15 @@ function WalletLogin() {
                 </div>
               </div>
             </CardContent>
-            <CardFooter className="flex justify-between">
+            <CardFooter className="flex justify-start">
               <Button onClick={handleRecoveryFromPrivateKey}>Recover</Button>
+              <Button
+                className="text-gray-300"
+                variant="link"
+                onClick={() => setAlreadyHaveWallet(false)}
+              >
+                New here? Create a wallet...
+              </Button>
             </CardFooter>
           </Card>
         </TabsContent>
@@ -97,8 +108,15 @@ function WalletLogin() {
                 </div>
               </div>
             </CardContent>
-            <CardFooter className="flex justify-between">
+            <CardFooter className="flex justify-start">
               <Button onClick={handleRecoveryFromPassphrase}>Recover</Button>
+              <Button
+                className="text-gray-300"
+                variant="link"
+                onClick={() => setAlreadyHaveWallet(false)}
+              >
+                New here? Create a wallet...
+              </Button>
             </CardFooter>
           </Card>
         </TabsContent>
