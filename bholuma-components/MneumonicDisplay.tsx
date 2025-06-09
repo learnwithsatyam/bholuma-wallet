@@ -8,7 +8,7 @@ const MnemonicDisplay: React.FC<MnemonicDisplayProps> = ({ phrase }) => {
   const words = phrase.trim().split(/\s+/);
 
   return (
-    <div className="grid grid-cols-3 gap-4 p-4 bg-gray-900 rounded-xl text-white">
+    <div className="grid grid-cols-3 gap-4 p-2 md:p-4 bg-gray-900 rounded-xl text-white">
       {words.map((word, index) => (
         <div
           key={index}
