@@ -85,15 +85,15 @@ function Wallet({
               </div>
             </BholumaButton>
           </div>
-
           <div className="flex-1 min-w-[45%]">
             <BholumaButton
               variant="outline"
               className="w-full rounded-lg"
               onClick={() => {
-                toast(
-                  "Swap is not supported yet. Use Bholuma DEX to swap tokens",
-                  { description: getDate() },
+                window.open(
+                  "https://dex.bholuma.in",
+                  "_blank",
+                  "noopener,noreferrer",
                 );
               }}
               icon={<Replace className="h-4 w-4" />}
