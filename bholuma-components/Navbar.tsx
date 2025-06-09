@@ -46,7 +46,14 @@ function Navbar() {
   const dispatch = useDispatch();
   return (
     <div className="flex items-center justify-between w-full px-4 py-4 text-primary shadow-white shadow-sm ">
-      <div className="text-lg font-bold">BholumaWallet</div>
+      <div className="flex items-center space-x-2">
+        <img
+          src="/bholumaIcon.png"
+          alt="BholumaWallet Logo"
+          className="h-8 mr-2"
+        />
+        <div className="text-lg font-bold">BholumaWallet</div>
+      </div>
       {address && (
         <div>
           <div className="hidden md:flex items-center space-x-2">
@@ -64,27 +71,25 @@ function Navbar() {
                 </NavigationMenuItem>
                 <NavigationMenuItem>
                   <NavigationMenuLink asChild>
-                    <Button
-                      variant="ghost"
-                      className="w-full"
-                      onClick={() => {
-                        navigator.clipboard.writeText(address.toString());
-                      }}
-                    >
-                      <Copy className="h-4 w-4" />
-                    </Button>
+                    <div className="">
+                      <Button
+                        variant="ghost"
+                        className="flex items-center mx-2"
+                        onClick={() => {
+                          navigator.clipboard.writeText(address.toString());
+                        }}
+                      >
+                        <Copy className="h-4 w-4" />
+                        {address.toString().substring(0, 10)}...
+                      </Button>
+                    </div>
                   </NavigationMenuLink>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger>
-                    <span className="p-2 rounded-md text-primary font-bold flex items-center">
-                      {address.toString().substring(0, 20)}
-                    </span>
-                  </NavigationMenuTrigger>
-                  <NavigationMenuContent>
+                  <NavigationMenuLink>
                     <Button
                       variant="ghost"
-                      className="w-full"
+                      className="w-full bg-pink-600"
                       onClick={() => {
                         dispatch(setAddress(""));
                         dispatch(setPrivateKey(""));
@@ -92,7 +97,7 @@ function Navbar() {
                     >
                       Disconnect
                     </Button>
-                  </NavigationMenuContent>
+                  </NavigationMenuLink>
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
@@ -109,7 +114,7 @@ function Navbar() {
                 <NavigationMenu>
                   <NavigationMenuList className="flex flex-col space-y-5 items-start">
                     <NavigationMenuItem>
-                      <div className="flex items-center space-x-2 pl-4">
+                      <div className="flex items-center space-x-2 pl-3">
                         <Switch
                           id="airplane-mode"
                           checked={isDevnet}
@@ -120,30 +125,25 @@ function Navbar() {
                     </NavigationMenuItem>
                     <NavigationMenuItem>
                       <NavigationMenuLink asChild>
-                        <div className="flex items-center pl-4">
-                          <span>Copy Address</span>
+                        <div>
                           <Button
                             variant="ghost"
-                            className=""
+                            className="flex items-center justify-start"
                             onClick={() => {
                               navigator.clipboard.writeText(address.toString());
                             }}
                           >
-                            <Copy className="h-4 w-4" />
+                            <Copy className="h-4" />
+                            {address.toString().substring(0, 10)}...
                           </Button>
                         </div>
                       </NavigationMenuLink>
                     </NavigationMenuItem>
                     <NavigationMenuItem>
-                      <NavigationMenuTrigger className="">
-                        <span className="rounded-md text-primary font-bold flex items-center">
-                          {address.toString().substring(0, 20)}
-                        </span>
-                      </NavigationMenuTrigger>
-                      <NavigationMenuContent>
+                      <NavigationMenuLink>
                         <Button
                           variant="ghost"
-                          className="w-full"
+                          className="w-full bg-pink-600 ml-3"
                           onClick={() => {
                             dispatch(setAddress(""));
                             dispatch(setPrivateKey(""));
@@ -151,7 +151,7 @@ function Navbar() {
                         >
                           Disconnect
                         </Button>
-                      </NavigationMenuContent>
+                      </NavigationMenuLink>
                     </NavigationMenuItem>
                   </NavigationMenuList>
                 </NavigationMenu>
