@@ -12,13 +12,9 @@ import {
 import React from "react";
 import {
   NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuIndicator,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
-  NavigationMenuViewport,
 } from "@/components/ui/navigation-menu";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/store/index";
